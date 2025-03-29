@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    {% include 'layout/style.html' %}
+</head>
+<body>
+    {% include 'components/topbar.html' %}
+    {% include 'components/navbar.html' %}
+    {% block main %}{% endblock main %}
+    {% include 'components/footer.html' %}
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    {% include 'layout/script.html' %}
+</body>
+</html>
