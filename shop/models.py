@@ -39,4 +39,13 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
     
+class Category(models.Model):
+    title = models.CharField(max_length=50)
+    image = models.ImageField(upload_to="images/")
 
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"

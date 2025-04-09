@@ -2,14 +2,19 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView
 from django.contrib.auth import logout, authenticate, login
 from shop.forms import SignInForm, SignUpForm
+from shop.models import Category
 
 # Create your views here.
 
-# class Index(ListView):
-#     template_name = "shop/index.html"
+class Index(ListView):
+    model = Category
+    context_object_name = "data"
+    template_name = "shop/index.html"
 
-def index(request):
-    return render(request, "shop/index.html")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 def signup(request):
     form = SignUpForm(data=request.POST or None)
