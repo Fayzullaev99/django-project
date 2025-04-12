@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView
 from django.contrib.auth import logout, authenticate, login
 from shop.forms import SignInForm, SignUpForm
-from shop.models import Category
+from shop.models import *
 
 # Create your views here.
 
@@ -14,6 +14,9 @@ class Index(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['subcategories'] = SubCategory.objects.all()
+        context['offers'] = Offer.objects.all()
+        context['vendors'] = Vendor.objects.all()
         return context
 
 def signup(request):

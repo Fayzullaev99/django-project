@@ -49,3 +49,36 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
+
+class SubCategory(models.Model):
+    title = models.CharField(max_length=100)
+    info = models.TextField()
+    image = models.ImageField(upload_to="images/")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name="subcategory")
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = "SubCategory"
+        verbose_name_plural = "SubCategories"
+
+class Offer(models.Model):
+    title = models.CharField(max_length=100)
+    percent = models.IntegerField(default=10)
+    image = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return self.title
+
+class Vendor(models.Model):
+    title = models.CharField(max_length=50, blank=True, null=True)
+    image = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return self.title
+
+
+
+
+
