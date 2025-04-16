@@ -79,6 +79,46 @@ class Vendor(models.Model):
         return self.title
 
 
+class Product(models.Model):
+    title = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=3)
+    sale = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
+    description = models.TextField(default="The description is not available")
+    information = models.TextField(default="The information is not available")
+    quantity = models.IntegerField(default=10)
+    color = models.CharField(max_length=30, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.title
+    
+class ProductSize(models.Model):
+    SIZE_CHOICES = [
+        ("XS","EXTRA SMALL"),
+        ("S","SMALL"),
+        ("M","MEDIUM"),
+        ("L","LARGE"),
+        ("XL","EXTRA LARGE"),
+        ("XXL","2-X LARGE"),
+    ]
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="sizes")
+    size = models.CharField(max_length=10, choices=SIZE_CHOICES, default="M")
+    stock = models.PositiveIntegerField(default=0)
 
+    class Meta:
+        unique_together = ("product","size")
+    
+    def __str__(self):
+        return self.size
 
+class Gallery(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="images/")
+    
+    class Meta:
+        verbose_name = "Gallery"
+        verbose_name_plural = "Galleries"
 
+    def __str__(self):
+        return self.product.title

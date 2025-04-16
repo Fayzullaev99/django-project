@@ -17,6 +17,7 @@ class Index(ListView):
         context['subcategories'] = SubCategory.objects.all()
         context['offers'] = Offer.objects.all()
         context['vendors'] = Vendor.objects.all()
+        context['products'] = Product.objects.all()
         return context
 
 def signup(request):
